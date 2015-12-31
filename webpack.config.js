@@ -5,6 +5,7 @@ const webpack = require('webpack')
 module.exports = {
   entry: {
     'hello-world': './site/hello-world/app.es6',
+    'tweets': './site/tweets/app.es6',
     // This comment marks where new entry points will be added
   },
   output: {
