@@ -52,9 +52,9 @@ d3.select('button').on('click', () => {
   d3.select('#bluecircle').transition().style('opacity', opacity)
 
   opacity = toggle ? 1 : 0.3
-  let dash = toggle ? '1,0' : '10,8'
+  let dash = toggle ? '' : '10,8'
   let width = toggle ? '6px' : '1px'
-  d3.select('#line').transition()
+  d3.select('#line').transition().duration(1500)
     .style('stroke-opacity', opacity)
     .style('stroke-dasharray', dash)
     .style('stroke-width', width)
