@@ -7,7 +7,7 @@ from pathlib2 import Path, PurePath
 
 
 GITHUB_USER = 'feihong'
-SITE = '/static-site-js-boilerplate/'
+SITE = '/d3-examples/'
 IMPORTS = [
     'from filters import markdown, rst'
 ]
