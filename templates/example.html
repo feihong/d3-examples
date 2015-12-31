@@ -1,0 +1,13 @@
+<%!
+    title = 'Example'
+%>
+<%inherit file="base.html"/>
+
+<a href='${site}'>Back</a> &nbsp; <a href='https://github.com/${user}${site}tree/master/site/${slug}'>Source</a>
+
+<h1>${self.attr.title}</h1>
+
+${next.body()}
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.12/d3.min.js'></script>
+<script src='bundle.js'></script>

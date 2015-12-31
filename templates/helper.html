@@ -1,0 +1,34 @@
+<%!
+  import os
+  import os.path as op
+  import re
+  import ast
+
+  def get_site_slugs():
+    for d in os.listdir('site'):
+      if op.isdir(op.join('site', d)) and d not in ('lib', 'static'):
+        yield d
+
+  def get_title(slug):
+    template_body = open(op.join('site', slug, 'index.html')).read()
+    code_block = re.compile(r'<%!(.*)%>', re.DOTALL).search(template_body).group(1)
+    for line in code_block.strip().splitlines():
+      line = line.strip()
+      m = re.match(r'^title\s*=(.*)', line)
+      if m:
+        literal = m.group(1).strip()
+        return ast.literal_eval(literal)
+
+    return slug
+%>
+
+<%def name='pagelist(user, site)'>
+  <ul>
+  % for slug in get_site_slugs():
+    <li>
+      <a href='${slug}/'>${get_title(slug)}</a>
+      (<a href='https://github.com/${user}${site}tree/master/site/${slug}'>source</a>)
+    </li>
+  % endfor
+  </ul>
+</%def>
