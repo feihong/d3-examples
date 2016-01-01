@@ -1,3 +1,6 @@
+import colorbrewer from './colorbrewer'
+
+
 d3.csv('stats.csv', (error, data) => {
   dataViz(data);
 })
@@ -27,6 +30,7 @@ function dataViz(data) {
     .attr('r', 20)
 
   teamG.append('text')
+    .attr('class', 'team')
     .style('text-anchor', 'middle')
     .attr('y', 30)
     .text(d => d.team)
@@ -36,14 +40,9 @@ function dataViz(data) {
     .style('text-anchor', 'middle')
     .attr('y', -30)
 
-  teamG.on('mouseover', d => {
-    d3.selectAll('g.overallG').select('circle').transition().duration(500)
-      .style('fill', p => p.region === d.region ? 'red' : 'gray')
-  })
+  d3.selectAll('circle').on('mouseover', highlight)
 
-  teamG.on('mouseout', () => {
-    d3.selectAll('g.overallG').select('circle').style('fill', 'pink')
-  })
+  d3.selectAll('circle').on('mouseout', unhighlight)
 
   let dataKeys = d3.keys(data[0]).filter(el => el !== 'team' && el !== 'region')
 
@@ -55,9 +54,23 @@ function dataViz(data) {
     .html(d => d)
 }
 
+function highlight(d, i) {
+  d3.selectAll('circle').each(function(p, i) {
+    p.region === d.region ?
+      d3.select(this).classed('active', true) :
+      d3.select(this).classed('inactive', true)
+  })
+}
+
+function unhighlight() {
+  d3.selectAll('circle').attr('class', '')
+}
+
 function handleClick(key, data) {
   let maxValue = d3.max(data, d => parseFloat(d[key]))
-  let radiusScale = d3.scale.linear().domain([0, maxValue]).range([2, 20])
+  let radiusScale = d3.scale.linear().domain([0, maxValue]).range([3, 20])
+  let colorQuantize = d3.scale.quantize()
+    .domain([0, maxValue]).range(colorbrewer.Reds[5])
 
   let teamG = d3.selectAll('g.overallG')
   teamG.select('text.value')
@@ -66,7 +79,9 @@ function handleClick(key, data) {
     .style('font-size', '20px')
     .transition()
     .style('font-size', '10px')
+
   teamG.select('circle')
     .transition()
     .attr('r', d => radiusScale(d[key]))
+    .style('fill', d => colorQuantize(d[key]))
 }
