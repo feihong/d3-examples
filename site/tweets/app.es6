@@ -8,22 +8,25 @@ function barChart(data) {
   nestedTweets.forEach(el => el.numTweets = el.values.length)
 
   let maxTweets = d3.max(nestedTweets, el => el.numTweets)
-
   let yScale = d3.scale.linear().domain([0, maxTweets]).range([0, 100])
 
-  d3.select('svg.bar')
-    .selectAll('rect')
+  let tweetG = d3.select('svg.bar')
+    .selectAll('g')
     .data(nestedTweets)
     .enter()
-    .append('rect')
+    .append('g')
+    .attr('transform', (d, i) => `translate(${i * 60},${130 - yScale(d.numTweets)})`)
+
+  tweetG.append('rect')
     .attr('width', 50)
     .attr('height', d => yScale(d.numTweets))
-    .attr('x', (d, i) => i * 60)
-    .attr('y', d => 100 - yScale(d.numTweets))
     .style('fill', 'blue')
     .style('stroke', 'red')
     .style('stroke-width', '1px')
-    .style('opacity', 0.5)
+    .style('opacity', 0.4)
+
+  tweetG.append('text')
+    .text(d => `${d.key} (${d.numTweets})`)
 }
 
 function scatterPlot(data) {
