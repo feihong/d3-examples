@@ -3,12 +3,36 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Tweets: Bar Chart and Scatter Plot</title>
+<title>World Cup</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel="stylesheet" href="/d3-examples/static/css/normalize.css">
 <link rel="stylesheet" href="/d3-examples/static/css/main.css">
 <script src="/d3-examples/static/js/modernizr-2.8.3.min.js"></script>
+
+<style>
+text {
+  font-size: 10px;
+}
+
+g > text.active {
+  font-size: 30px;
+}
+
+circle {
+  fill: pink;
+  stroke: black;
+  stroke-width: 1px;
+}
+
+circle.active {
+  fill: red;
+}
+
+circle.inactive {
+  fill: gray;
+}
+</style>
 
 </head>
 <body>
@@ -19,24 +43,22 @@
 
 
 
-<a href='/d3-examples/'>Back</a> &nbsp; <a href='https://github.com/feihong/d3-examples/tree/master/site/tweets'>Source</a>
+<a href='/d3-examples/'>Back</a> &nbsp; <a href='https://github.com/feihong/d3-examples/tree/master/site/world-cup'>Source</a>
 
-<h1>Tweets: Bar Chart and Scatter Plot</h1>
+<h1>World Cup</h1>
+
+
 
 
 
 
 <p>
-  The following visualizations were generated from <a href='tweets.json'>this data</a>.
+  The following visualizations were generated from <a href='stats.csv'>this data</a>.
 </p>
 
-<h2>Bar chart</h2>
-<svg class='bar' style='width:300px; height:130px; border:1px gray solid;' />
 
-<h2>Scatter plot</h2>
-<svg class='scatter' style='width:500px; height:550px; border:1px gray solid;' />
-
-<div><button>Filter</button></div>
+<svg style='width:500px; height:550px; border:1px gray solid;'>
+<div id='controls'></div>
 
 
 <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.12/d3.min.js'></script>

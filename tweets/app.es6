@@ -15,7 +15,7 @@ function barChart(data) {
     .data(nestedTweets)
     .enter()
     .append('g')
-    .attr('transform', (d, i) => `translate(${i * 60},${130 - yScale(d.numTweets)})`)
+    .attr('transform', (d, i) => `translate(${i * 60 + 10},${130 - yScale(d.numTweets)})`)
 
   tweetG.append('rect')
     .attr('width', 50)
@@ -57,7 +57,7 @@ function scatterPlot(data) {
     .style('stroke-width', '1px')
 
   tweetG.append('text')
-    .text(d => `${d.user}-${d.tweetTime.getHours()}`)
+    .text(d => `${d.user} ${d.tweetTime.getHours()}`)
 
   d3.select('button').on('click', () => {
     let filteredData = data.filter(el => el.impact > 0)
