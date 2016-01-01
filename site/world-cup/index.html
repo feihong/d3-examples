@@ -1,0 +1,38 @@
+<%!
+    title = 'World Cup'
+%>
+<%inherit file='example.html' />
+
+<%block name='extrahead'>
+<style>
+text {
+  font-size: 10px;
+}
+
+g > text.active {
+  font-size: 30px;
+}
+
+circle {
+  fill: pink;
+  stroke: black;
+  stroke-width: 1px;
+}
+
+circle.active {
+  fill: red;
+}
+
+circle.inactive {
+  fill: gray;
+}
+</style>
+</%block>
+
+<p>
+  The following visualizations were generated from <a href='stats.csv'>this data</a>.
+</p>
+
+
+<svg style='width:500px; height:550px; border:1px gray solid;'>
+<div id='controls'></div>
